@@ -23,13 +23,23 @@ llm_with_tools = llm.bind_tools(tools)
 def chatbot(state: State):
     message = llm_with_tools.invoke(state["messages"])
     return {"messages": [message]}
-
+'''
 def human_assistance_node(state: State):
     last_msg = state["messages"][-1]
     print("\nHuman Intervention Needed:")
     print(last_msg.content)
     correction = input("Human: ")
     return {"messages": [AIMessage(content=correction)]}
+'''
+def human_assistance_node(state: State):
+    last_msg = state["messages"][-1]
+    print("\n\n--- Human Intervention Activated ---")
+    print(f"The LLM's last thought/request was:\n> {last_msg.content}")
+    print("\nPlease provide the corrected, new, or specific instruction.")
+    correction = input("Human Correction/Instruction: ") 
+    
+    # *** FIX: Wrap the human input as a HumanMessage ***
+    return {"messages": [HumanMessage(content=correction)]}
 
 graph_builder = StateGraph(State)
 graph_builder.add_node("chatbot", chatbot)
