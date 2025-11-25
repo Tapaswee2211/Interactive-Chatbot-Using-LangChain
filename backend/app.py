@@ -18,6 +18,9 @@ class Query(BaseModel):
 
 @app.post("/chat")
 def chat(query: Query):
-    response = run_chatbot(query.message, query.session_id)
-    return {"response": response}
+    try:
+        response = run_chatbot(query.message, query.session_id)
+        return {"response": response}
+    except Exception as e:
+        return {"response": f"Error: {str(e)}"}
 

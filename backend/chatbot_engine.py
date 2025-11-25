@@ -51,7 +51,7 @@ def route_condition(state: State):
     last = messages[-1]
     if hasattr(last, "tool_calls") and last.tool_calls:
         return "tools"
-    if "help" in last.content.lower() or "human" in last.content.lower():
+    if "help" in last.content.lower() or  last.content.lower().strip() == "/human":
         return "human"
     return END
 

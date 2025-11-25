@@ -13,7 +13,10 @@ user_input = st.text_input("You:", "")
 if st.button("Send"):
     if user_input:
         response = requests.post(API_URL, json={"message": user_input, "session_id": "1"})
-        bot_reply = response.json()["response"]
+        try:
+            bot_reply = response.json().get("response")
+        except:
+            bot_reply = "Server error"
         
         st.session_state.messages.append(("user", user_input))
         st.session_state.messages.append(("bot", bot_reply))
