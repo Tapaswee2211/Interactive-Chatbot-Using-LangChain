@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://localhost:8000/chat"
+API_URL = "https://interactive-chatbot-using-langchain.onrender.com/chat"
 
 st.title("Human-in-the-Loop AI Chatbot")
 
